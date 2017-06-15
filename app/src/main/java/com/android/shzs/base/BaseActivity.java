@@ -29,14 +29,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //设置屏幕方向为肖像方向，切换屏幕不会横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //隐藏状态栏
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         beforeSetContentView(savedInstanceState);
         setContentView(getLayoutId());
-        ButterKnife.bind(this);
+        ButterKnife.bind(this);//必须在setContentView();之后，且父类bind绑定后，子类不需要再bind
         AppManager.getAppManager().addActivity(this);
         mContext=this;
-        afterSetContentView(savedInstanceState);
-        StatusBarCompat.compat(this);
-        StatusBarFontHelper.setStatusBarMode(this, true);
+        StatusBarCompat.compat(this);//适配状态栏兼容设置
+        StatusBarFontHelper.setStatusBarMode(this, true);//状态栏字体以及图标颜色设为深色
         initView();
         initData();
         initListener();
@@ -46,21 +47,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayoutId();
 
-    protected void afterSetContentView(Bundle savedInstanceState) {}
-
     protected void initView() {}
 
     protected void initData() {}
 
     protected void initListener() {}
 
-//    public void setToolbar(Toolbar mToolbar) {
-//        setSupportActionBar(mToolbar);
-//        if (getSupportActionBar() != null) {
-//            //隐藏标题栏
-//            getSupportActionBar().setDisplayShowTitleEnabled(false);
-//        }
-//    }
+
 
 
 

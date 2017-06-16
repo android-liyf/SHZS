@@ -1,5 +1,6 @@
 package com.android.shzs.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,10 +19,12 @@ import static com.android.shzs.base.BaseConstant.STATE_SAVE_IS_HIDDEN;
 
 public abstract class BaseFragment extends Fragment {
 
+    protected Context mContext;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        this.mContext = getActivity();
         View view = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, view);
         userBundle(savedInstanceState);
@@ -60,4 +63,5 @@ public abstract class BaseFragment extends Fragment {
     protected void initListener() {
 
     }
+
 }
